@@ -1,0 +1,39 @@
+import java.util.*;
+
+public class Main {
+    public static List<int[]> two_Sum(int[] arr) {
+        // Sort the array
+        Arrays.sort(arr);
+
+        List<int[]> result = new ArrayList<>();
+        int left = 0;
+        int right = arr.length - 1;
+
+        // Use two-pointer technique to find pairs with sum = 0
+        while (left < right) {
+            int sum = arr[left] + arr[right];
+            if (sum == 0) {
+                result.add(new int[]{arr[left], arr[right]});
+                left++;
+                right--;
+
+                // Skip duplicate elements
+                while (left < right && arr[left] == arr[left - 1]) left++;
+                while (left < right && arr[right] == arr[right + 1]) right--;
+            } else if (sum < 0) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {-1, 0,-4, 4, 1, 2, -1, -2};
+        List<int[]> res = two_Sum(nums);
+        for (int[] pair : res) {
+            System.out.println(Arrays.toString(pair));
+        }
+    }
+}
